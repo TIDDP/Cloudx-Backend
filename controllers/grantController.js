@@ -1,0 +1,27 @@
+const Grant = require('../models/Grant');
+
+// Add a new grant (only for alumni)
+exports.addGrant = async (req, res) => {
+    try {
+        if (req.user.userType !== 'alumni') {
+            return res.status(403).json({ message: 'Only alumni can add grants' });
+        }
+
+        const { title, description, amount, expiryDate } = req.body;
+
+        const grant = new Grant({
+            title,
+            description,
+            amount,
+            expiryDate,
+            addedBy: req.user.id
+        });
+
+        await grant.save();
+        res.status(201).json({ message: 'Grant added successfully', grant });
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error });
+    }
+};
+
+
