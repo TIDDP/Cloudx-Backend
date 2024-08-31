@@ -42,3 +42,15 @@ exports.deleteGrant = async (req, res) => {
         res.status(500).json({ message: 'Server Error', error });
     }
 };
+
+// Get all grants (viewable by students)
+exports.getGrants = async (req, res) => {
+    try {
+        const grants = await Grant.find();
+        res.status(200).json(grants);
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error });
+    }
+};
+
+
