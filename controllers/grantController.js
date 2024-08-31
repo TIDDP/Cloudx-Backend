@@ -24,4 +24,21 @@ exports.addGrant = async (req, res) => {
     }
 };
 
+// Delete a grant (only for alumni)
+exports.deleteGrant = async (req, res) => {
+    try {
+        if (req.user.userType !== 'alumni') {
+            return res.status(403).json({ message: 'Only alumni can delete grants' });
+        }
 
+        const grant = await Grant.findOneAndDelete({ _id: req.params.id, addedBy: req.user.id });
+
+        if (!grant) {
+            return res.status(404).json({ message: 'Grant not found or unauthorized' });
+        }
+
+        res.status(200).json({ message: 'Grant deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error });
+    }
+};
