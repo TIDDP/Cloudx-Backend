@@ -16,3 +16,16 @@ exports.createStudentProfile = async (req, res) => {
     }
 };
 
+// Create Alumni Profile
+exports.createAlumniProfile = async (req, res) => {
+    try {
+        const { userId, graduationYear, currentOccupation, company } = req.body;
+
+        const profile = new AlumniProfile({ userId, graduationYear, currentOccupation, company });
+        await profile.save();
+
+        res.status(201).json({ message: 'Alumni profile created successfully', profile });
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error });
+    }
+};
