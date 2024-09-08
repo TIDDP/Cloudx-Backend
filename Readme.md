@@ -6,18 +6,20 @@ https://tora-backend.onrender.com/api/users
 **Register a New User**
 Endpoint: /register
 Method: POST
-Payload:
+
+**Payload**  
 {
-  "name": "John Doe",
-  "email": "johndoe@example.com",
-  "password": "yourpassword"
-}
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "password": "yourpassword"
+   }
 
 **Login User**
 Endpoint: /login
 Method: POST
-Payload:
+
+**Payload**
 {
-  "email": "johndoe@example.com",
-  "password": "yourpassword"
+      "email": "johndoe@example.com",
+      "password": "yourpassword"
 }
