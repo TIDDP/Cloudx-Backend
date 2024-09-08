@@ -23,3 +23,24 @@ Method: POST
       "email": "johndoe@example.com",
       "password": "yourpassword"
 }
+
+**Forgot Password**
+Endpoint: /forgot-password
+Method: POST
+
+**Payload**
+{
+  "email": "johndoe@example.com"
+}
+
+An email would be sent
+
+
+**Reset Password**
+Endpoint: /reset-password/:token
+Method: POST
+
+**Payload**
+{
+  "password": "newpassword"
+}
