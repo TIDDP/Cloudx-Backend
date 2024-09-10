@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const encryptionService = require('../services/encryptionService');
+const encryptionServices = require('../services/encryptionServices');
 
 const messageSchema = new mongoose.Schema({
     senderId: {
@@ -15,8 +15,8 @@ const messageSchema = new mongoose.Schema({
     message: {
         type: String,
         required: true,
-        set: value => encryptionService.encryptMessage(value), // Encrypt message before saving
-        get: value => encryptionService.decryptMessage(value)  // Decrypt message when retrieving
+        set: value => encryptionServices.encryptMessage(value), // Encrypt message before saving
+        get: value => encryptionServices.decryptMessage(value)  // Decrypt message when retrieving
     },
     timestamp: {
         type: Date,
