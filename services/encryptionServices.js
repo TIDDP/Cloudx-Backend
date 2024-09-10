@@ -11,3 +11,12 @@ exports.encryptMessage = (message) => {
     encrypted = Buffer.concat([encrypted, cipher.final()]);
     return `${iv.toString('hex')}:${encrypted.toString('hex')}`;
 };
+
+// Decrypt a message
+exports.decryptMessage = (encryptedMessage) => {
+    const [iv, encryptedText] = encryptedMessage.split(':');
+    const decipher = crypto.createDecipheriv(algorithm, Buffer.from(secretKey), Buffer.from(iv, 'hex'));
+    let decrypted = decipher.update(Buffer.from(encryptedText, 'hex'));
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    return decrypted.toString();
+};
