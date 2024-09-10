@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const grantRoutes = require('./routes/grantRoutes');
+const messageRoutes = require('./routes/messageRoutes');
 const postRoutes = require('./routes/postRoutes')
 const app = express();
 app.use(express.json());
@@ -18,5 +19,6 @@ app.use('/api/users', userRoutes);
 app.use('/api/users', profileRoutes);
 app.use('/api/users', grantRoutes);
 app.use('/api', postRoutes);
+app.use('/api', messageRoutes');
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
