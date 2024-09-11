@@ -26,3 +26,31 @@ exports.scheduleMeeting = async (req, res) => {
     res.status(500).json({ message: 'Error scheduling meeting', error });
   }
 };
+
+// Join a meeting
+exports.joinMeeting = async (req, res) => {
+  const { meetingId, userId } = req.body;
+
+  try {
+    const meeting = await Meeting.findById(meetingId);
+    if (!meeting) {
+      return res.status(404).json({ message: 'Meeting not found' });
+    }
+
+    const participant = meeting.participants.find(p => p.user.toString() === userId);
+    if (!participant) {
+      return res.status(404).json({ message: 'Participant not found' });
+    }
+
+    if (participant.hasJoined) {
+      return res.status(400).json({ message: 'Participant has already joined the meeting' });
+    }
+
+    participant.hasJoined = true;
+    await meeting.save();
+
+    res.status(200).json({ message: 'User joined the meeting', meeting });
+  } catch (error) {
+    res.status(500).json({ message: 'Error joining meeting', error });
+  }
+};
