@@ -54,3 +54,20 @@ exports.joinMeeting = async (req, res) => {
     res.status(500).json({ message: 'Error joining meeting', error });
   }
 };
+
+// Get all participants who have joined a meeting
+exports.getJoinedParticipants = async (req, res) => {
+  const { meetingId } = req.params;
+
+  try {
+    const meeting = await Meeting.findById(meetingId).populate('participants.user', 'name email');
+    if (!meeting) {
+      return res.status(404).json({ message: 'Meeting not found' });
+    }
+
+    const joinedParticipants = meeting.participants.filter(p => p.hasJoined).map(p => p.user);
+    res.status(200).json({ joinedParticipants });
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving participants', error });
+  }
+};
