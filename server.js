@@ -7,7 +7,6 @@ const grantRoutes = require('./routes/grantRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const postRoutes = require('./routes/postRoutes');
 const meetingRoutes = require('./routes/meetingRoutes');
-
 const app = express();
 app.use(express.json());
 
